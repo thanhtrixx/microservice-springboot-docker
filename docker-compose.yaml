@@ -3,10 +3,10 @@ services:
   third-party:
     build: ./third-party
     environment:
-      - min-delay-in-seconds=1
-      - max-delay-in-seconds=3
-#    ports:
-#      - "8081:8080"
+      - min-delay-in-seconds=3
+      - max-delay-in-seconds=5
+    #    ports:
+    #      - "8081:8080"
     networks:
       - internal_network
 
@@ -25,34 +25,60 @@ services:
       - MYSQL_DATABASE=purchase-data
       - MYSQL_USER=purchase-data
       - MYSQL_PASSWORD=purchase-data-pass
-    ports:
-      - 3306:3306
     volumes:
       - ./mysql/init-db.sql:/docker-entrypoint-initdb.d/1.sql
       - ./mysql/data.sql:/docker-entrypoint-initdb.d/2.sql
     networks:
       - internal_network
+#      - external_network
+#    ports:
+#      - 3306:3306
 
   redis:
     image: redis:6.0
-#    ports:
-#      - 6379:6379
+    #    ports:
+    #      - 6379:6379
     networks:
       - internal_network
 
   data-voucher:
     build: ./data-voucher
-    ports:
-      - "8083:8080"
     depends_on:
       - third-party
       - redis
     networks:
       - internal_network
-      - external_network
+#      - external_network
+#    ports:
+#      - 8083:8080
     environment:
       - redis-host=redis
       - third-party-path=http://third-party:8080
+      - third-party-timeout-seconds=125
+      - time-to-live-in-seconds=150
+
+  purchase-data:
+    build: ./purchase-data
+    depends_on:
+      - mysql
+      - data-voucher
+      - sms
+    networks:
+      - internal_network
+      - external_network
+    ports:
+      - 8080:8080
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=purchase-data
+      - MYSQL_PASS=purchase-data-pass
+      - MYSQL_SCHEMA=purchase-data
+      - DATABASE_PORT=3306
+      - data-voucher-path=http://data-voucher:8080
+      - data-voucher-timeout-seconds=3
+      - sms-path=http://sms:8080
+      - re-get-voucher-in-seconds=6
+      - logging.level.org.springframework.security=INFO
 
 networks:
   internal_network:
@@ -62,17 +88,3 @@ networks:
     driver: bridge
     internal: false
 
-
-#  purchase-data:
-#    image: myapp-image-name-that-appears-when-you-run-docker-images
-#    restart: on-failure
-#    depends_on:
-#      - mysql
-#    ports:
-#      - 8080:8080
-#    environment:
-#      - DATABASE_HOST=myapp-mysql
-#      - DATABASE_USER=myapp-user
-#      - DATABASE_PASSWORD=password
-#      - DATABASE_NAME=MyAppDb
-#      - DATABASE_PORT=3306

@@ -1,5 +1,5 @@
 CREATE TABLE `data_voucher` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_time` datetime(6) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `voucher` varchar(64) DEFAULT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE `data_voucher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
   `phone` varchar(64) DEFAULT NULL,
