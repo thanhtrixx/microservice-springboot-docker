@@ -15,9 +15,12 @@ repositories {
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-web'
+
   implementation 'org.springframework.boot:spring-boot-starter-data-redis'
   implementation 'redis.clients:jedis:3.4.1'
-  implementation 'junit:junit:4.12'
+
+  implementation 'com.google.guava:guava:30.0-jre'
+
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

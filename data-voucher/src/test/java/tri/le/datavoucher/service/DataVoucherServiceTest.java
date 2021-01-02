@@ -1,6 +1,5 @@
 package tri.le.datavoucher.service;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,9 @@ import tri.le.datavoucher.dto.GenericResponse;
 import tri.le.datavoucher.error.ErrorCode;
 import tri.le.datavoucher.repository.DataVoucherRepository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -34,9 +35,9 @@ public class DataVoucherServiceTest {
   void testGetDataVoucherRequestIdNull() {
     GenericResponse<String> response = dataVoucherService.getDataVoucher(null);
 
-    Assert.assertEquals("ErrorCode", ErrorCode.INVALID_PARAM.getCode(), response.getReturnCode());
-    Assert.assertEquals("ReturnMessage", "RequestId is empty", response.getReturnMessage());
-    Assert.assertEquals("Data", null, response.getData());
+    assertEquals(ErrorCode.INVALID_PARAM.getCode(), response.getReturnCode(), "ErrorCode");
+    assertEquals("RequestId is empty", response.getReturnMessage(), "ReturnMessage");
+    assertEquals(null, response.getData(), "Data");
   }
 
   @Test
@@ -44,9 +45,9 @@ public class DataVoucherServiceTest {
   void testGetDataVoucherRequestIdEmpty() {
     GenericResponse<String> response = dataVoucherService.getDataVoucher("");
 
-    Assert.assertEquals("ErrorCode", ErrorCode.INVALID_PARAM.getCode(), response.getReturnCode());
-    Assert.assertEquals("ReturnMessage", "RequestId is empty", response.getReturnMessage());
-    Assert.assertEquals("Data", null, response.getData());
+    assertEquals(ErrorCode.INVALID_PARAM.getCode(), response.getReturnCode(), "ErrorCode");
+    assertEquals("RequestId is empty", response.getReturnMessage(), "ReturnMessage");
+    assertEquals(null, response.getData(), "Data");
   }
 
   @Test
@@ -58,8 +59,8 @@ public class DataVoucherServiceTest {
 
     GenericResponse<String> response = dataVoucherService.getDataVoucher(requestId);
 
-    Assert.assertEquals("ErrorCode", ErrorCode.CALL_API_ERROR.getCode(), response.getReturnCode());
-    Assert.assertEquals("ReturnMessage", "Error when call ThirdParty with requestId: " + requestId, response.getReturnMessage());
-    Assert.assertEquals("Data", null, response.getData());
+    assertEquals(ErrorCode.CALL_API_ERROR.getCode(), response.getReturnCode(), "ErrorCode");
+    assertEquals("Error when call ThirdParty with requestId: " + requestId, response.getReturnMessage(), "ReturnMessage");
+    assertEquals(null, response.getData(), "Data");
   }
 }

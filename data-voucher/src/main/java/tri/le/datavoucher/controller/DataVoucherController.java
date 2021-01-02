@@ -16,7 +16,7 @@ public class DataVoucherController {
 
   @PostMapping(path = "/get-data-voucher")
   public @ResponseBody
-  GenericResponse<String> getDataVoucher(@RequestParam String requestId) {
+  GenericResponse<String> getDataVoucher(@RequestParam("request-id") String requestId) {
     return dataVoucherService.getDataVoucher(requestId);
   }
 

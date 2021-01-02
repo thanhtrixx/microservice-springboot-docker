@@ -1,10 +1,10 @@
 package tri.le.datavoucher.service;
 
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import tri.le.datavoucher.api.ThirdPartyApi;
 import tri.le.datavoucher.dto.GenericResponse;
@@ -25,7 +25,7 @@ public class DataVoucherService {
   private DataVoucherRepository dataVoucherRepository;
 
   public GenericResponse<String> getDataVoucher(String requestId) {
-    if (!StringUtils.hasLength(requestId)) {
+    if (Strings.isNullOrEmpty(requestId)) {
       return new GenericResponse<>(ErrorCode.INVALID_PARAM, "RequestId is empty", null);
     }
 
