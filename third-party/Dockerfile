@@ -12,4 +12,4 @@ EXPOSE 8080
 WORKDIR /app
 COPY --from=gradle /build/build/libs/*.jar .
 
-ENTRYPOINT ["java", "-jar", "/app/third-party-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/runnable.jar"]
