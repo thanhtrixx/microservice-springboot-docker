@@ -1,6 +1,7 @@
 package tri.le.purchasedata.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 public class DataVoucher {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+  @GenericGenerator(name = "native", strategy = "native")
   private Long id;
 
   private Long userId;
