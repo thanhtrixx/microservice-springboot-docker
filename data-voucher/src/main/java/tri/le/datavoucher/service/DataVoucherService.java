@@ -51,6 +51,10 @@ public class DataVoucherService {
   }
 
   public GenericResponse<String> getDataVoucherByRequestId(String requestId) {
+    if (Strings.isNullOrEmpty(requestId)) {
+      return new GenericResponse<>(ErrorCode.INVALID_PARAM, "RequestId is empty", null);
+    }
+
     try {
 
       DataVoucherEntity dataVoucher = dataVoucherRepository
@@ -62,7 +66,7 @@ public class DataVoucherService {
 
       return new GenericResponse<>(ErrorCode.NO_ERROR, "Success", dataVoucher.getVoucher());
     } catch (NSTException e) {
-      logger.error("Error when get data voucher", e);
+      logger.error("Error when get data voucher from cache", e);
       return new GenericResponse<>(ErrorCode.CAN_NOT_GET_VOUCHER_BY_REQUEST_ID, e.getMessage(), null);
     }
   }

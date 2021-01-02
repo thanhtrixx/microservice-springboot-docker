@@ -3,6 +3,7 @@ package tri.le.purchasedata.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +14,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import tri.le.purchasedata.dto.GenericResponse;
 
+import java.net.SocketTimeoutException;
 import java.time.Duration;
 
 @Component
@@ -34,13 +37,14 @@ public class DataVoucherApi {
   private String dataVoucherPath;
 
   @Value("${data-voucher-timeout-seconds:30}")
-  private long dataVoucherTimeoutInSeconds;
+  public long dataVoucherTimeoutInSeconds;
 
   @Autowired
-  private RestTemplate restTemplate;
+  @Qualifier("dataVoucherRestTemplate")
+  private RestTemplate dataVoucherRestTemplate;
 
   @Bean
-  public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+  public RestTemplate dataVoucherRestTemplate(RestTemplateBuilder restTemplateBuilder) {
     logger.info("Create RestTemplate with timeout {}s", dataVoucherTimeoutInSeconds);
 
     return restTemplateBuilder
@@ -49,18 +53,18 @@ public class DataVoucherApi {
       .build();
   }
 
-  public GenericResponse<String> getDataVoucher(String requestId) {
+  public GenericResponse<String> getDataVoucher(String requestId) throws SocketTimeoutException {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
     HttpEntity<?> entity = new HttpEntity<>(headers);
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(dataVoucherPath + GET_DATA_VOUCHER)
-      .queryParam("request-id", requestId);
+    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(dataVoucherPath + GET_DATA_VOUCHER)
+      .queryParam("request-id", requestId)
+      .build();
 
-
-    HttpEntity<GenericResponse<String>> response = restTemplate.exchange(
-      builder.toUriString(),
+    HttpEntity<GenericResponse<String>> response = dataVoucherRestTemplate.exchange(
+      uriComponents.toUri(),
       HttpMethod.POST,
       entity,
       GENERIC_RESPONSE_STRING);
@@ -74,12 +78,12 @@ public class DataVoucherApi {
 
     HttpEntity<?> entity = new HttpEntity<>(headers);
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(dataVoucherPath + GET_DATA_VOUCHER)
-      .queryParam("request-id", requestId);
+    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(dataVoucherPath + GET_DATA_VOUCHER_BY_REQUEST_ID)
+      .queryParam("request-id", requestId)
+      .build();
 
-
-    HttpEntity<GenericResponse<String>> response = restTemplate.exchange(
-      builder.toUriString(),
+    HttpEntity<GenericResponse<String>> response = dataVoucherRestTemplate.exchange(
+      uriComponents.toUri(),
       HttpMethod.POST,
       entity,
       GENERIC_RESPONSE_STRING);

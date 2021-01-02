@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(indexes = {@Index(name = "userididx", columnList = "userid")})
 public class DataVoucher {
 
   @Id
