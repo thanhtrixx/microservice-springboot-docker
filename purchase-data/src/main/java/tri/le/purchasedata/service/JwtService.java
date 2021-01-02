@@ -32,12 +32,12 @@ public class JwtService {
   private int expiredInSeconds;
 
   @Bean
-  private long expiredInMillis() {
+  public long expiredInMillis() {
     return Duration.ofSeconds(expiredInSeconds).toMillis();
   }
 
   @Bean
-  private SecretKey secretKey() {
+  public SecretKey secretKey() {
     String hashedSecret = Hashing
       .sha256()
       .hashString(secret, StandardCharsets.UTF_8)

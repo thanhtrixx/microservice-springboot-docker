@@ -1,6 +1,5 @@
 package tri.le.purchasedata.service;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,7 +16,7 @@ public class JwtServiceTest {
   @Autowired
   JwtService jwtService;
 
-  @Test
+  //  @Test
   void test() throws NSTException {
     TokenInfo tokenInfo = jwtService.getTokenInfo("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5NDk1NTkwfQ.eusZLhqBDmey3HGeuPalYrw2FNg0U9gTWqZ4KMi0e1HBW_ptXTequQ0vhpeukwchEOkcmcs2OWF8n5tBeGEV_w");
 
