@@ -19,9 +19,9 @@ import static tri.le.purchasedata.error.ErrorCode.NO_ERROR;
 import static tri.le.purchasedata.error.ErrorCode.TOKEN_INVALID;
 
 @Service
-public class DataVoucherService {
+public class PurchaseDataService {
 
-  private static Logger logger = LoggerFactory.getLogger(DataVoucherService.class);
+  private static Logger logger = LoggerFactory.getLogger(PurchaseDataService.class);
 
   @Autowired
   private DataVoucherRepository dataVoucherRepository;
