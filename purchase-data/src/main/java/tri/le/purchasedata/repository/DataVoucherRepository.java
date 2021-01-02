@@ -6,4 +6,6 @@ import tri.le.purchasedata.entity.User;
 
 public interface DataVoucherRepository extends CrudRepository<DataVoucher, Long> {
 
+  Iterable<DataVoucher> findByUserId(Long userId);
+
 }
