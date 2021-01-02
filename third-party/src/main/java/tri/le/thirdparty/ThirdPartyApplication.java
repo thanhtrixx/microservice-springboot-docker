@@ -2,6 +2,7 @@ package tri.le.thirdparty;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,13 @@ public class ThirdPartyApplication {
   private static int length = 8;
   private static Random random = new Random();
 
+  @Value("${min-delay-in-seconds:3}")
+  private int minDelayInSeconds;
+
+  @Value("${max-delay-in-seconds:120}")
+  private int maxDelayInSeconds;
+
+
   public static void main(String[] args) {
     SpringApplication.run(ThirdPartyApplication.class, args);
   }
@@ -27,7 +35,8 @@ public class ThirdPartyApplication {
   @PostMapping(path = "/generate-data-voucher")
   public @ResponseBody
   String generateDataVoucher() {
-    int sleepTimeInSeconds = 3 + random.nextInt(120 - 3); // from 3 to 120
+    // from minDelayInSeconds to maxDelayInSeconds
+    int sleepTimeInSeconds = minDelayInSeconds + random.nextInt(maxDelayInSeconds - minDelayInSeconds);
 
     try {
       logger.info("Simulate time to generate voucher. Sleep: {}", sleepTimeInSeconds);

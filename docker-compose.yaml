@@ -2,14 +2,20 @@ version: '3.9'
 services:
   third-party:
     build: ./third-party
-    ports:
-      - "8081:8080"
+    environment:
+      - min-delay-in-seconds=1
+      - max-delay-in-seconds=3
+#    ports:
+#      - "8081:8080"
+    networks:
+      - internal_network
 
   sms:
     build: ./sms
     ports:
       - "8082:8080"
-
+    networks:
+      - internal_network
 
   mysql:
     image: mysql:5.7
@@ -24,11 +30,38 @@ services:
     volumes:
       - ./mysql/init-db.sql:/docker-entrypoint-initdb.d/1.sql
       - ./mysql/data.sql:/docker-entrypoint-initdb.d/2.sql
+    networks:
+      - internal_network
 
   redis:
     image: redis:6.0
+#    ports:
+#      - 6379:6379
+    networks:
+      - internal_network
+
+  data-voucher:
+    build: ./data-voucher
     ports:
-      - 6379:6379
+      - "8083:8080"
+    depends_on:
+      - third-party
+      - redis
+    networks:
+      - internal_network
+      - external_network
+    environment:
+      - redis-host=redis
+      - third-party-path=http://third-party:8080
+
+networks:
+  internal_network:
+    internal: true
+    driver: bridge
+  external_network:
+    driver: bridge
+    internal: false
+
 
 #  purchase-data:
 #    image: myapp-image-name-that-appears-when-you-run-docker-images
