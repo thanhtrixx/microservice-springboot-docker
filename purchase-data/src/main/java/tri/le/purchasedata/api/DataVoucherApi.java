@@ -36,6 +36,9 @@ public class DataVoucherApi {
   @Value("${data-voucher-timeout-seconds:30}")
   private long dataVoucherTimeoutInSeconds;
 
+  @Autowired
+  private RestTemplate restTemplate;
+
   @Bean
   public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
     logger.info("Create RestTemplate with timeout {}s", dataVoucherTimeoutInSeconds);
@@ -45,10 +48,6 @@ public class DataVoucherApi {
       .setReadTimeout(Duration.ofSeconds(dataVoucherTimeoutInSeconds))
       .build();
   }
-
-  @Autowired
-  private RestTemplate restTemplate;
-
 
   public GenericResponse<String> getDataVoucher(String requestId) {
     HttpHeaders headers = new HttpHeaders();

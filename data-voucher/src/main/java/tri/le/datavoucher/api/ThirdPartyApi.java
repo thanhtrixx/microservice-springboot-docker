@@ -28,6 +28,9 @@ public class ThirdPartyApi {
   @Value("${third-party-timeout-seconds:120}")
   private long thirdPartyTimeoutInSeconds;
 
+  @Autowired
+  private RestTemplate restTemplate;
+
   @Bean
   public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
     logger.info("Create RestTemplate with timeout {}s", thirdPartyTimeoutInSeconds);
@@ -37,9 +40,6 @@ public class ThirdPartyApi {
       .setReadTimeout(Duration.ofSeconds(thirdPartyTimeoutInSeconds))
       .build();
   }
-
-  @Autowired
-  private RestTemplate restTemplate;
 
   public String getDataVoucher() {
     HttpHeaders headers = new HttpHeaders();
