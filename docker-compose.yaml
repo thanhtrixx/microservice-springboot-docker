@@ -1,0 +1,34 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=purchase-data
+      - MYSQL_USER=purchase-data
+      - MYSQL_PASSWORD=purchase-data-pass
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/init-db.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./mysql/data.sql:/docker-entrypoint-initdb.d/2.sql
+
+  redis:
+    image: redis:6.0
+    ports:
+      - 6379:6379
+
+#  purchase-data:
+#    image: myapp-image-name-that-appears-when-you-run-docker-images
+#    restart: on-failure
+#    depends_on:
+#      - mysql
+#    ports:
+#      - 8080:8080
+#    environment:
+#      - DATABASE_HOST=myapp-mysql
+#      - DATABASE_USER=myapp-user
+#      - DATABASE_PASSWORD=password
+#      - DATABASE_NAME=MyAppDb
+#      - DATABASE_PORT=3306
