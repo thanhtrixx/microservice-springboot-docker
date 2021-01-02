@@ -9,13 +9,13 @@ import tri.le.purchasedata.entity.DataVoucher;
 import tri.le.purchasedata.repository.DataVoucherRepository;
 
 @RestController
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/data-voucher")
 public class DataVoucherController {
 
   @Autowired
   private DataVoucherRepository dataVoucherRepository;
 
-  @GetMapping(path = "/all")
+  @GetMapping(path = "/purchase")
   public @ResponseBody
   Iterable<DataVoucher> getAllUsers() {
     return dataVoucherRepository.findAll();

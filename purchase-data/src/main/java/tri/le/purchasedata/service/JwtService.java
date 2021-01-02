@@ -2,6 +2,7 @@ package tri.le.purchasedata.service;
 
 import com.google.common.base.Strings;
 import com.google.common.hash.Hashing;
+import com.google.common.primitives.Longs;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
@@ -73,10 +74,16 @@ public class JwtService {
     tokenInfo.setUserName(subject);
 
     Object userIdObj = body.get("userId");
-    if (userIdObj == null || !(userIdObj instanceof Long)) {
+    if (userIdObj == null) {
+      throw new NSTException(TOKEN_INVALID, "UserId in token " + token + " is null");
+    }
+
+    Long userId = Longs.tryParse(userIdObj.toString());
+    if (userId == null) {
       throw new NSTException(TOKEN_INVALID, "UserId in token " + token + " invalid");
     }
-    tokenInfo.setUserId((long) userIdObj);
+
+    tokenInfo.setUserId(userId);
 
     return tokenInfo;
   }
