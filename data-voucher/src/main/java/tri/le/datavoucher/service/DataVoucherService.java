@@ -67,6 +67,9 @@ public class DataVoucherService {
       return new GenericResponse<>(ErrorCode.NO_ERROR, "Success", dataVoucher.getVoucher());
     } catch (NSTException e) {
       logger.error("Error when get data voucher from cache", e);
+      return new GenericResponse<>(e.getErrorCode(), e.getMessage(), null);
+    } catch (Exception e) {
+      logger.error("Error when get data voucher from cache", e);
       return new GenericResponse<>(ErrorCode.CAN_NOT_GET_VOUCHER_BY_REQUEST_ID, e.getMessage(), null);
     }
   }
