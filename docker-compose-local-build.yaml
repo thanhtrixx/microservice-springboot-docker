@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   third-party:
-    build: ./third-party
+    image: third-party
     environment:
       - min-delay-in-seconds=3
       - max-delay-in-seconds=5
@@ -11,7 +11,7 @@ services:
       - internal_network
 
   sms:
-    build: ./sms
+    image: sms
     ports:
       - "8082:8080"
     networks:
@@ -42,7 +42,7 @@ services:
       - internal_network
 
   data-voucher:
-    build: ./data-voucher
+    image: data-voucher
     depends_on:
       - third-party
       - redis
@@ -58,7 +58,7 @@ services:
       - time-to-live-in-seconds=150
 
   purchase-data:
-    build: ./purchase-data
+    image: purchase-data
     depends_on:
       - mysql
       - data-voucher
