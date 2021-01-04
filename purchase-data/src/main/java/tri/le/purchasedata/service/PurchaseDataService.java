@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import tri.le.purchasedata.api.DataVoucherApi;
-import tri.le.purchasedata.api.SmsApi;
+import tri.le.purchasedata.api.PhoneCarrierApi;
 import tri.le.purchasedata.dto.GenericResponse;
 import tri.le.purchasedata.entity.DataVoucher;
 import tri.le.purchasedata.entity.User;
@@ -32,7 +32,7 @@ public class PurchaseDataService {
 
   private static Logger logger = LoggerFactory.getLogger(PurchaseDataService.class);
 
-  @Value("${send-sms-executor-thread:1}")
+  @Value("${send-phone-carrier-executor-thread:1}")
   private int sendSmsExecutorThread;
 
   @Value("${re-get-voucher-in-seconds:120}")
@@ -48,7 +48,7 @@ public class PurchaseDataService {
   private DataVoucherApi dataVoucherApi;
 
   @Autowired
-  private SmsApi smsApi;
+  private PhoneCarrierApi phoneCarrierApi;
 
   @Bean
   public ScheduledExecutorService sendSmsExecutor() {
@@ -140,7 +140,7 @@ public class PurchaseDataService {
         saveDataVoucher(userId, voucher);
 
         String smsContent = "Your data voucher: " + voucher.getData();
-        smsApi.sendSms(phone, smsContent);
+        phoneCarrierApi.sendSms(phone, smsContent);
       } catch (Exception e) {
         logger.error("ReGet data voucher error", e);
       }

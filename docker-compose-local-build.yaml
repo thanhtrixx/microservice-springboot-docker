@@ -10,8 +10,8 @@ services:
     networks:
       - internal_network
 
-  sms:
-    image: sms
+  phone-carrier:
+    image: phone-carrier
     ports:
       - "8082:8080"
     networks:
@@ -62,7 +62,7 @@ services:
     depends_on:
       - mysql
       - data-voucher
-      - sms
+      - phone-carrier
     networks:
       - internal_network
       - external_network
@@ -76,7 +76,7 @@ services:
       - DATABASE_PORT=3306
       - data-voucher-path=http://data-voucher:8080
       - data-voucher-timeout-seconds=3
-      - sms-path=http://sms:8080
+      - phone-carrier-path=http://phone-carrier:8080
       - re-get-voucher-in-seconds=6
       - logging.level.org.springframework.security=INFO
 

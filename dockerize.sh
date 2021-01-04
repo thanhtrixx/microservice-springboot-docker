@@ -4,8 +4,8 @@ echo "------------------------------------------------"
 echo "                  Dockerize"
 echo "------------------------------------------------"
 
-echo "Dockerize SMS"
-docker build -t sms -f Dockerfile-local-build sms
+echo "Dockerize PhoneCarrier"
+docker build -t phone-carrier -f Dockerfile-local-build phone-carrier
 
 echo "Dockerize ThirdParty"
 docker build -t third-party -f Dockerfile-local-build third-party

@@ -4,8 +4,8 @@ echo "------------------------------------------------"
 echo "                  Java Build"
 echo "------------------------------------------------"
 
-echo "Build SMS"
-( cd sms ; ./gradlew clean build --info )
+echo "Build PhoneCarrier"
+( cd phone-carrier ; ./gradlew clean build --info )
 
 echo "Build ThirdParty"
 ( cd third-party ; ./gradlew clean build --info )

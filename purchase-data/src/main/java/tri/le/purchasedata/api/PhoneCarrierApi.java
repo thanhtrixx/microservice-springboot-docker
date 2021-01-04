@@ -19,29 +19,29 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.time.Duration;
 
 @Component
-public class SmsApi {
+public class PhoneCarrierApi {
 
-  private static Logger logger = LoggerFactory.getLogger(SmsApi.class);
+  private static Logger logger = LoggerFactory.getLogger(PhoneCarrierApi.class);
 
   private static String SEND_SMS = "/send-sms";
 
-  @Value("${sms-path:http://localhost:8083}")
-  private String smsPath;
+  @Value("${phone-carrier-path:http://localhost:8083}")
+  private String phoneCarrierPath;
 
-  @Value("${sms-timeout-seconds:30}")
-  private long smsTimeoutInSeconds;
+  @Value("${phone-carrier-timeout-seconds:30}")
+  private long phoneCarrierTimeoutInSeconds;
 
   @Autowired
-  @Qualifier("smsRestTemplate")
-  private RestTemplate smsRestTemplate;
+  @Qualifier("phoneCarrierRestTemplate")
+  private RestTemplate phoneCarrierRestTemplate;
 
   @Bean
-  public RestTemplate smsRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-    logger.info("Create SmsRestTemplate with timeout {}s", smsTimeoutInSeconds);
+  public RestTemplate phoneCarrierRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+    logger.info("Create PhoneCarrierRestTemplate with timeout {}s", phoneCarrierTimeoutInSeconds);
 
     return restTemplateBuilder
-      .setConnectTimeout(Duration.ofSeconds(smsTimeoutInSeconds))
-      .setReadTimeout(Duration.ofSeconds(smsTimeoutInSeconds))
+      .setConnectTimeout(Duration.ofSeconds(phoneCarrierTimeoutInSeconds))
+      .setReadTimeout(Duration.ofSeconds(phoneCarrierTimeoutInSeconds))
       .build();
   }
 
@@ -51,12 +51,12 @@ public class SmsApi {
 
     HttpEntity<?> entity = new HttpEntity<>(headers);
 
-    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(smsPath + SEND_SMS)
+    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(phoneCarrierPath + SEND_SMS)
       .queryParam("phone", phone)
       .queryParam("content", content)
       .build();
 
-    smsRestTemplate.exchange(
+    phoneCarrierRestTemplate.exchange(
       uriComponents.toUri(),
       HttpMethod.POST,
       entity,
