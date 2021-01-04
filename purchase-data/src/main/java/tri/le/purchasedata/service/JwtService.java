@@ -99,6 +99,9 @@ public class JwtService {
     } catch (ExpiredJwtException e) {
       logger.warn("Token expired");
       throw new NSTException(TOKEN_INVALID, "Token expired");
+    } catch (SignatureException e) {
+      logger.warn("Signature invalid", e);
+      throw new NSTException(TOKEN_INVALID, "Signature invalid");
     } catch (JwtException e) {
       logger.warn("Parse token error", e);
       throw new NSTException(TOKEN_INVALID, "Token invalid");
