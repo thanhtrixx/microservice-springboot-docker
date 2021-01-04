@@ -29,7 +29,7 @@ public class UserService {
     }
 
     User user = userOpt.get();
-    String token = jwtService.createToken(user.getName(), user.getId());
+    String token = jwtService.createToken(user.getName(), user.getId(), System.currentTimeMillis());
     return new GenericResponse(NO_ERROR, "Login success", token);
   }
 

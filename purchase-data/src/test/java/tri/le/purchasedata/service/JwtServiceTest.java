@@ -11,7 +11,6 @@ import tri.le.purchasedata.error.NSTException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 @SpringBootTest
 public class JwtServiceTest {
@@ -23,8 +22,8 @@ public class JwtServiceTest {
   // Secret = SHA256("this-is-secret-string-for-test")
 
   @Test
-  @DisplayName("Test token: Expired")
-  void tokenExpired() throws NSTException {
+  @DisplayName("Test getTokenInfo: Expired")
+  void testGetTokenInfo_tokenExpired() throws NSTException {
     //{
     //  "sub": "trile",
     //  "userId": 1,
@@ -38,8 +37,8 @@ public class JwtServiceTest {
   }
 
   @Test
-  @DisplayName("Test token: Signature invalid")
-  void tokenSignatureInvalid() throws NSTException {
+  @DisplayName("Test getTokenInfo: Signature invalid")
+  void testGetTokenInfo_tokenSignatureInvalid() throws NSTException {
     //{
     //  "sub": "trile",
     //  "userId": 1,
@@ -53,8 +52,8 @@ public class JwtServiceTest {
   }
 
   @Test
-  @DisplayName("Test token: Token valid")
-  void tokenValid() throws NSTException {
+  @DisplayName("Test getTokenInfo: Token valid")
+  void testGetTokenInfo_tokenValid() throws NSTException {
     //{
     //  "sub": "trile",
     //  "userId": 1,
@@ -66,5 +65,24 @@ public class JwtServiceTest {
 
     assertEquals("trile", tokenInfo.getUserName(), "Token.sub");
     assertEquals(1L, tokenInfo.getUserId(), "Token.userId");
+  }
+
+  @Test
+  @DisplayName("Test createToken: Correct token")
+  void testCreateToken_tokenValid() throws NSTException {
+    //{
+    //  "sub": "trile",
+    //  "userId": 1,
+    //  "exp": 7952256 => Monday, 31 December 2221 00:00:00 GMT
+    //}
+    String expectToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjo3OTUyMjU2fQ.njM_FQi8vWN6UE99ODJ3KpdJjO_XUKNjpYUmICJeyxOWhEAlSeVX2dQcUFe4YADpQzQdMlunO6A3Eh67Ry1AQA";
+
+    String sub = "trile";
+    Long userId = 1L;
+    long currentTimeMillis = 7952256000L - 100 * 1000;
+
+    String actualToken = jwtService.createToken(sub, userId, currentTimeMillis);
+
+    assertEquals(expectToken, actualToken, "Token");
   }
 }

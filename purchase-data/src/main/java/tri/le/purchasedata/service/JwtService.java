@@ -46,8 +46,8 @@ public class JwtService {
     return Keys.hmacShaKeyFor(hashedSecret.getBytes(StandardCharsets.UTF_8));
   }
 
-  public String createToken(String user, Long userId) {
-    Date expiredDate = new Date(System.currentTimeMillis() + expiredInMillis());
+  public String createToken(String user, Long userId, long currentTimeMillis) {
+    Date expiredDate = new Date(currentTimeMillis + expiredInMillis());
 
     return Jwts.builder()
       .setSubject(user)
