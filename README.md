@@ -66,7 +66,7 @@ Based on the above requirements and my personal experience. I will choose a Tech
 
 ### IV.1. Architecture layers diagram
 
-![Architecturelayers diagram](https://devdocs.magento.com/common/images/archi_diagram_desired-state.png)
+![Architecture layers diagram](https://trile.dev/img/post/cc-1-architecture.svg)
 
 ### IV.2. Functions diagram
  
