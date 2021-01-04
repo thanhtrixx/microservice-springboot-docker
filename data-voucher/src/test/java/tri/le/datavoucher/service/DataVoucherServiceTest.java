@@ -96,7 +96,7 @@ public class DataVoucherServiceTest {
     dataVoucher.setVoucher(voucher);
 
     // check call dataVoucherRepository.save(dataVoucher) only 1 times
-    verify(dataVoucherRepository, times(1)).save(refEq(dataVoucher));
+    verify(dataVoucherRepository, times(1)).save(eq(dataVoucher));
   }
 
   @Test
