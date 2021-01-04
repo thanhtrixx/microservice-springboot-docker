@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import tri.le.purchasedata.api.DataVoucherApi;
@@ -56,49 +54,23 @@ public class PurchaseDataService {
     return Executors.newScheduledThreadPool(sendSmsExecutorThread);
   }
 
-  public GenericResponse<Iterable<DataVoucher>> getDataVouchersPurchased() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+  public GenericResponse<Iterable<DataVoucher>> getDataVouchersPurchased(User user) {
 
-    if (authentication == null) {
-      return new GenericResponse<>(TOKEN_INVALID, "Authentication is null", null);
-    }
-
-    Object principal = authentication.getPrincipal();
-
-    if (principal == null || !(principal instanceof User)) {
-      return new GenericResponse<>(TOKEN_INVALID, "Principal invalid", null);
-    }
-
-    User user = (User) principal;
-
-    Long userId = user.getId();
-    if (userId == null) {
-      return new GenericResponse<>(TOKEN_INVALID, "UserId is null", null);
+    if (user == null || user.getId() == null) {
+      return new GenericResponse<>(TOKEN_INVALID, "User or UserId is null", null);
     }
 
     return new GenericResponse<>(NO_ERROR, "Get Data Vouchers purchased success",
-      dataVoucherRepository.findByUserId(userId));
+      dataVoucherRepository.findByUserId(user.getId()));
   }
 
-  public GenericResponse<String> purchaseDataVoucher() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+  public GenericResponse<String> purchaseDataVoucher(User user) {
 
-    if (authentication == null) {
-      return new GenericResponse<>(TOKEN_INVALID, "Authentication is null", null);
+    if (user == null || user.getId() == null) {
+      return new GenericResponse<>(TOKEN_INVALID, "User or UserId is null", null);
     }
-
-    Object principal = authentication.getPrincipal();
-
-    if (principal == null || !(principal instanceof User)) {
-      return new GenericResponse<>(TOKEN_INVALID, "Principal invalid", null);
-    }
-
-    User user = (User) principal;
 
     Long userId = user.getId();
-    if (userId == null) {
-      return new GenericResponse<>(TOKEN_INVALID, "UserId is null", null);
-    }
 
     String requestId = UUID.randomUUID().toString();
     try {

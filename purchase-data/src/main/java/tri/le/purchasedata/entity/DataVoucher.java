@@ -3,14 +3,18 @@ package tri.le.purchasedata.entity;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class DataVoucher {
 
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
   @GenericGenerator(name = "native", strategy = "native")
   private Long id;
 
@@ -52,4 +56,16 @@ public class DataVoucher {
   public void setCreateTime(LocalDateTime createTime) {
     this.createTime = createTime;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof DataVoucher)) return false;
+    DataVoucher that = (DataVoucher) o;
+    return Objects.equals(getId(), that.getId()) &&
+      Objects.equals(getUserId(), that.getUserId()) &&
+      Objects.equals(getVoucher(), that.getVoucher()) &&
+      Objects.equals(getCreateTime(), that.getCreateTime());
+  }
+
 }
