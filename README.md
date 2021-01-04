@@ -69,6 +69,8 @@ Based on the above requirements and my personal experience. I will choose a Tech
 ![Architecture layers diagram](https://trile.dev/img/post/cc-1-architecture.svg)
 
 ### IV.2. Functions diagram
+
+![Functions diagram](https://trile.dev/img/post/cc-1-functions.svg)
  
 ### IV.3. Deploy diagram
 
