@@ -1,5 +1,6 @@
 package tri.le.purchasedata.service;
 
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +116,24 @@ public class PurchaseDataService {
     } catch (Exception e) {
       logger.error("Error when get data voucher", e);
       return new GenericResponse<>(ErrorCode.COMMON_ERROR, e.getMessage(), null);
+    }
+  }
+
+  public GenericResponse<Void> applyDataVoucher(String phone, String voucher) {
+    if (Strings.isNullOrEmpty(phone)) {
+      return new GenericResponse<>(ErrorCode.INVALID_PARAM, "Phone is empty", null);
+    }
+
+    if (Strings.isNullOrEmpty(voucher)) {
+      return new GenericResponse<>(ErrorCode.INVALID_PARAM, "Voucher is empty", null);
+    }
+
+    try {
+      phoneCarrierApi.applyDataVoucher(phone, voucher);
+      return new GenericResponse<>(NO_ERROR, "Success", null);
+    } catch (Exception e) {
+      logger.error("Call PhoneCarrier to apply data voucher error", e);
+      return new GenericResponse<>(ErrorCode.APPLY_DATA_VOUCHER_ERROR, "Apply data voucher error", null);
     }
   }
 

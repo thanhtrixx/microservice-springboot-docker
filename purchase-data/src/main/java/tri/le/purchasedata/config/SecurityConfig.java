@@ -41,7 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   public void configure(WebSecurity web) throws Exception {
     web
-      .ignoring().antMatchers("/user/login**", "/error");
+      .ignoring().antMatchers(
+      "/user/login**",
+      "/error",
+      "/purchase-data/apply-data-voucher"
+    );
   }
 
   @Bean

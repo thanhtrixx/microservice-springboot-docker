@@ -9,6 +9,7 @@ public enum ErrorCode {
   CAN_NOT_GET_VOUCHER_BY_REQUEST_ID(4),
   USER_NAME_OR_PASSWORD_INCORRECT(5),
   TOKEN_INVALID(6),
+  APPLY_DATA_VOUCHER_ERROR(7),
   ;
 
   private final int code;

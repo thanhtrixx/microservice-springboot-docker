@@ -14,16 +14,20 @@ public class PurchaseDataController {
   private PurchaseDataService purchaseDataService;
 
   @PostMapping(path = "/")
-  public @ResponseBody
-  GenericResponse<String> purchaseDataVoucher() {
+  public GenericResponse<String> purchaseDataVoucher() {
 
     return purchaseDataService.purchaseDataVoucher();
   }
 
   @GetMapping(path = "/")
-  public @ResponseBody
-  GenericResponse<Iterable<DataVoucher>> getDataVouchersPurchased() {
+  public GenericResponse<Iterable<DataVoucher>> getDataVouchersPurchased() {
 
     return purchaseDataService.getDataVouchersPurchased();
+  }
+
+  @PostMapping(path = "/apply-data-voucher")
+  public GenericResponse<Void> applyDataVoucher(@RequestParam String phone, @RequestParam String voucher) {
+
+    return purchaseDataService.applyDataVoucher(phone, voucher);
   }
 }

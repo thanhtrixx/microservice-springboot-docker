@@ -24,6 +24,7 @@ public class PhoneCarrierApi {
   private static Logger logger = LoggerFactory.getLogger(PhoneCarrierApi.class);
 
   private static String SEND_SMS = "/send-sms";
+  private static String APPLY_DATA_VOUCHER = "/apply-data-voucher";
 
   @Value("${phone-carrier-path:http://localhost:8083}")
   private String phoneCarrierPath;
@@ -54,6 +55,24 @@ public class PhoneCarrierApi {
     UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(phoneCarrierPath + SEND_SMS)
       .queryParam("phone", phone)
       .queryParam("content", content)
+      .build();
+
+    phoneCarrierRestTemplate.exchange(
+      uriComponents.toUri(),
+      HttpMethod.POST,
+      entity,
+      String.class);
+  }
+
+  public void applyDataVoucher(String phone, String voucher) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+    HttpEntity<?> entity = new HttpEntity<>(headers);
+
+    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(phoneCarrierPath + APPLY_DATA_VOUCHER)
+      .queryParam("phone", phone)
+      .queryParam("voucher", voucher)
       .build();
 
     phoneCarrierRestTemplate.exchange(
