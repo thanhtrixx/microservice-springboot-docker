@@ -29,7 +29,7 @@
 8. From Problem #5 &#8594; must apply authentication.
 9. From Problem #5 & Analize #8 &#8594; there is a contradictory problem. Can an authenticated user see the data of another user? 
 
-### II.1 PurchaseData: active or passive?
+### II.1. PurchaseData: active or passive?
 
 From Analize #6, we have 2 options to choose from. Each option has its own strengths and weaknesses.
 
@@ -42,7 +42,7 @@ From Analize #6, we have 2 options to choose from. Each option has its own stren
 
 **&#8594; PurchaseData active better than.**
 
-### II.2 Security problem
+### II.2. Security problem
 
 From Analize #9. I find the requirement above is unreasonable, so I made a little change to the more reasonable request:
 
@@ -64,17 +64,17 @@ Based on the above requirements and my personal experience. I will choose a Tech
 
 ## IV. Architecture Documents
 
-### IV.1 Architecture layers diagram
+### IV.1. Architecture layers diagram
 
 ![Architecturelayers diagram](https://devdocs.magento.com/common/images/archi_diagram_desired-state.png)
 
-### IV.2 Functions diagram
+### IV.2. Functions diagram
  
-### IV.3 Deploy diagram
+### IV.3. Deploy diagram
 
 https://www.cuelogic.com/blog/istio-service-mesh
 
-### IV.4 Data models
+### IV.4. Data models
 
 
 
