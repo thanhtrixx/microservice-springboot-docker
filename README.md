@@ -57,6 +57,7 @@ Based on the above requirements and my personal experience. I will choose a Tech
 + Spring Boot 2
 + MySql 5.6 + Spring JPA + Hibernate
 + JWT + Spring Security + Jjwt
++ Spring Cloud Sleuth
 + Redis 6.0 + Spring Data + Jedis
 + Gradle 6.7
 + Docker + Docker-compose
@@ -154,6 +155,13 @@ http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_inva
 
 ![List purchased data vouchers with token invalid](https://trile.dev/img/post/cc-1-purchased-data-vouchers-token-invalid.png)
 
++ Test Tracing with B3 Propagation
+
+```
+http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5OTMxMjYzfQ.mp3pnFYvfcKHj9Pr3sQocGlSXfXowNvREZzyreQxhTYTMIfcNsNdHK4dgxhoFKNwjeGhiYcsN9zeYiQwQceYLg' x-b3-traceid:'74c34ca310a4392e' b3:'80f198ee56343ba864fe8b2a57d3eff7-e457b5a2e4d86bd1-1-05e3ac9a4f6e3b90'
+```
+
+![B3 Propagation](https://trile.dev/img/post/cc-1-b3-propagation.png)
 
 ##### UnitTest
 
