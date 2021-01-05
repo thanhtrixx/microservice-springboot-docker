@@ -96,33 +96,41 @@ Perform the following steps to run the test:
 `./docker-compose-up.sh -f`
 Use option *-f* to build jar files & docker images
 + Login to get JWT token. I use [HTTPie](https://httpie.io/) because it's readable than *curl*:
+
 `http POST 'http://localhost:8080/user/login?name=trile&password=123123'`
 
 ![Login success](https://trile.dev/img/post/cc-1-login.png)
 
 + Login with invalid username or password:
+
 `http POST 'http://localhost:8080/user/login?name=trile&password=incorrect-pass'`
 
 ![Login incorrect pass](https://trile.dev/img/post/cc-1-login-incorrect-pass.png)
 
 + Purchase data:
+
 `http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5ODIwNDM2fQ.kL0ABL5te5DEsBbEmRqgsK__nan4FGj0Q2gLhNh8FJEo0acqjMHY3-X22fRjJCZQglwnTeRzHPMqXdpul4-vjg'`
 
 ![Purchase data](https://trile.dev/img/post/cc-1-purchase-data-sms.png)
 
+At backend
+
 ![Send SMS](https://trile.dev/img/post/cc-1-send-sms.png)
 
 + Purchase data with token invalid:
+
 `http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_invalid'`
 
 ![Purchase data with token invalid](https://trile.dev/img/post/cc-1-purchase-data-voucher-token-invalid.png)
 
 + List purchased data vouchers:
+
 `http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5OTMxMjYzfQ.mp3pnFYvfcKHj9Pr3sQocGlSXfXowNvREZzyreQxhTYTMIfcNsNdHK4dgxhoFKNwjeGhiYcsN9zeYiQwQceYLg'`
 
 ![Purchase data with token invalid](https://trile.dev/img/post/cc-1-purchased-data-vouchers.png)
 
 + List purchased data vouchers with token invalid:
+
 `http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_invalid'`
 
 ![List purchased data vouchers with token invalid](https://trile.dev/img/post/cc-1-purchased-data-vouchers-token-invalid.png)
