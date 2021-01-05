@@ -117,7 +117,7 @@ Perform the following steps to run the test:
 ![Docker compose up](https://trile.dev/img/post/cc-1-docker-compose-up.png)
 
 Asciicast
-[![Asciicast](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR.png)](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR)
+[![Asciicast](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR.svg)](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR)
 
 Use option **-f** to build jar files & docker images
 
