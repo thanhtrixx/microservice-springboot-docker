@@ -92,3 +92,14 @@ Based on the above requirements and my personal experience. I will choose a Tech
 
 
 ##### UnitTest
+
+UnitTest classes:
+
+###### PurchaseData
+
++ [PurchaseDataServiceTest](purchase-data/src/test/java/tri/le/purchasedata/service/PurchaseDataServiceTest.java)
++ [JwtServiceTest](purchase-data/src/test/java/tri/le/purchasedata/service/JwtServiceTest.java)
+
+###### DataVoucher
+
++ [DataVoucherServiceTest](data-voucher/src/test/java/tri/le/datavoucher/service/DataVoucherServiceTest.java)
