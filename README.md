@@ -114,10 +114,7 @@ Perform the following steps to run the test:
 ./docker-compose-up.sh -f
 ```
 
-![Docker compose up](https://trile.dev/img/post/cc-1-docker-compose-up.png)
-
-Asciicast
-[![Asciicast](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR.svg)](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR)
+[![Asciicast](https://asciinema.org/a/382753.svg)](https://asciinema.org/a/382753)
 
 Use option **-f** to build jar files & docker images
 
