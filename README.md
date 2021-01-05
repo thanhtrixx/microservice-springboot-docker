@@ -122,7 +122,8 @@ http POST 'http://localhost:8080/user/login?name=trile&password=incorrect-pass'
 + Purchase data:
 
 ```
-http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5ODIwNDM2fQ.kL0ABL5te5DEsBbEmRqgsK__nan4FGj0Q2gLhNh8FJEo0acqjMHY3-X22fRjJCZQglwnTeRzHPMqXdpul4-vjg'
+http POST 'http://localhost:8080/purchase-data/' \
+    Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5ODIwNDM2fQ.kL0ABL5te5DEsBbEmRqgsK__nan4FGj0Q2gLhNh8FJEo0acqjMHY3-X22fRjJCZQglwnTeRzHPMqXdpul4-vjg'
 ```
 
 ![Purchase data](https://trile.dev/img/post/cc-1-purchase-data-sms.png)
@@ -134,7 +135,8 @@ At backend
 + Purchase data with token invalid:
 
 ```
-http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_invalid'
+http POST 'http://localhost:8080/purchase-data/' \
+    Authorization:'Bearer token_invalid'
 ```
 
 ![Purchase data with token invalid](https://trile.dev/img/post/cc-1-purchase-data-voucher-token-invalid.png)
@@ -142,7 +144,8 @@ http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_inv
 + List purchased data vouchers:
 
 ```
-http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5OTMxMjYzfQ.mp3pnFYvfcKHj9Pr3sQocGlSXfXowNvREZzyreQxhTYTMIfcNsNdHK4dgxhoFKNwjeGhiYcsN9zeYiQwQceYLg'
+http GET 'http://localhost:8080/purchase-data/' \
+    Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5OTMxMjYzfQ.mp3pnFYvfcKHj9Pr3sQocGlSXfXowNvREZzyreQxhTYTMIfcNsNdHK4dgxhoFKNwjeGhiYcsN9zeYiQwQceYLg'
 ```
 
 ![Purchase data with token invalid](https://trile.dev/img/post/cc-1-purchased-data-vouchers.png)
@@ -150,7 +153,8 @@ http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOi
 + List purchased data vouchers with token invalid:
 
 ```
-http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_invalid'
+http GET 'http://localhost:8080/purchase-data/' \
+    Authorization:'Bearer token_invalid'
 ```
 
 ![List purchased data vouchers with token invalid](https://trile.dev/img/post/cc-1-purchased-data-vouchers-token-invalid.png)
@@ -158,7 +162,9 @@ http GET 'http://localhost:8080/purchase-data/' Authorization:'Bearer token_inva
 + Test Tracing with B3 Propagation
 
 ```
-http POST 'http://localhost:8080/purchase-data/' Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5OTMxMjYzfQ.mp3pnFYvfcKHj9Pr3sQocGlSXfXowNvREZzyreQxhTYTMIfcNsNdHK4dgxhoFKNwjeGhiYcsN9zeYiQwQceYLg' x-b3-traceid:'74c34ca310a4392e' b3:'80f198ee56343ba864fe8b2a57d3eff7-e457b5a2e4d86bd1-1-05e3ac9a4f6e3b90'
+http POST 'http://localhost:8080/purchase-data/' \
+    Authorization:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlsZSIsInVzZXJJZCI6MSwiZXhwIjoxNjA5OTMxMjYzfQ.mp3pnFYvfcKHj9Pr3sQocGlSXfXowNvREZzyreQxhTYTMIfcNsNdHK4dgxhoFKNwjeGhiYcsN9zeYiQwQceYLg' x-b3-traceid:'74c34ca310a4392e' \
+    b3:'80f198ee56343ba864fe8b2a57d3eff7-e457b5a2e4d86bd1-1-05e3ac9a4f6e3b90'
 ```
 
 ![B3 Propagation](https://trile.dev/img/post/cc-1-b3-propagation.png)
