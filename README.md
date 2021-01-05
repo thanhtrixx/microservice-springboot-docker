@@ -116,6 +116,9 @@ Perform the following steps to run the test:
 
 ![Docker compose up](https://trile.dev/img/post/cc-1-docker-compose-up.png)
 
+Asciicast
+[![Asciicast](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR.png)](https://asciinema.org/a/pGN0ulMJ7FyL99XhDZ2ZUOMjR)
+
 Use option **-f** to build jar files & docker images
 
 + Login to get JWT token. I use [HTTPie](https://httpie.io/) because it's readable than *curl*:
