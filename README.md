@@ -74,13 +74,13 @@ Based on the above requirements and my personal experience. I will choose a Tech
  
 ### IV.3. Deploy diagram
 
-https://www.cuelogic.com/blog/istio-service-mesh
+![Deploy diagram](https://trile.dev/img/post/cc-1-deploy.svg)
 
-### IV.4. Data models
+### IV.4. Entity diagram
 
+![Entity diagram](https://trile.dev/img/post/cc-1-entity.svg)
 
-
-##### Sequel diagram
+### IV.5. Sequel diagram
 
 
 
