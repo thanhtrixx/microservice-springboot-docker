@@ -1,0 +1,29 @@
+@startuml
+
+participant WebSite
+
+box "BackEnd" #LightYellow
+participant PurchaseData
+database MySQL
+end box
+
+WebSite -> PurchaseData : Login with user name & password
+activate WebSite
+activate PurchaseData
+PurchaseData -> MySQL: Query user with user name & password
+MySQL --> PurchaseData: Result
+
+alt #Coral Don't have user
+
+  PurchaseData -> WebSite: Login Failure
+
+else #MediumSpringGreen Have user in DB
+
+  PurchaseData -> PurchaseData: Generate JWT token
+  PurchaseData --> WebSite: JWT token
+  deactivate PurchaseData
+  deactivate WebSite
+end
+
+
+@enduml

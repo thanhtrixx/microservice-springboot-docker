@@ -83,6 +83,21 @@ Based on the above requirements and my personal experience. I will choose a Tech
 
 ### IV.5. Sequel diagram
 
+###### Login
+
+![Login](https://trile.dev/img/post/cc-1-sequence-user-login.svg)
+
+###### Purchase data voucher
+
+![Purchase data voucher](https://trile.dev/img/post/cc-1-sequence-purchase-data-voucher.svg)
+
+###### Get purchased data vouchers
+
+![Get purchased data vouchers](https://trile.dev/img/post/cc-1-sequence-get-purchased-data-vouchers.svg)
+
+###### Apply data voucher
+
+![Apply data voucher](https://trile.dev/img/post/cc-1-sequence-apply-data-voucher.svg)
 
 
 ## V. APIs
@@ -101,7 +116,7 @@ Perform the following steps to run the test:
 
 ![Docker compose up](https://trile.dev/img/post/cc-1-docker-compose-up.png)
 
-Use option *-f* to build jar files & docker images
+Use option **-f** to build jar files & docker images
 
 + Login to get JWT token. I use [HTTPie](https://httpie.io/) because it's readable than *curl*:
 

@@ -1,0 +1,76 @@
+@startuml
+
+participant WebSite
+
+box "BackEnd" #LightYellow
+participant PurchaseData
+participant DataVoucher
+database MySQL
+database Redis
+end box
+
+box "Partner services" #LightBlue
+ participant PhoneCarrier
+ participant ThirdParty
+end box
+
+WebSite -> PurchaseData : Purchase data voucher
+activate PurchaseData
+PurchaseData -> PurchaseData: Check JWT token
+
+alt #Coral JWT token invalid
+
+  PurchaseData -> WebSite: Authentication Failure
+
+else #MediumSpringGreen JWT token valid
+
+  PurchaseData -> PurchaseData: Generate RequestId
+  PurchaseData -> DataVoucher: Get data voucher
+  activate DataVoucher
+  DataVoucher -> ThirdParty: Get data voucher
+  activate ThirdParty
+
+  alt #HotPink PurchaseData call DataVoucher < 30s
+    ThirdParty --> DataVoucher: Data voucher
+    deactivate ThirdParty
+
+    DataVoucher --> Redis: Save data voucher with RequestId & TTL
+    deactivate DataVoucher
+
+    PurchaseData --> MySQL: Save data voucher
+    PurchaseData --> WebSite: Data voucher
+  else #Aqua PurchaseData call DataVoucher >= 30s
+
+    PurchaseData --> WebSite: Notice to send the voucher later by SMS
+
+    PurchaseData -> PurchaseData: Calculate DelayTime to get data voucher
+    PurchaseData -> PurchaseData: Add Task to get data voucher
+    activate PurchaseData
+    deactivate PurchaseData
+    deactivate PurchaseData
+
+  end
+
+end
+
+== Task Get data voucher ==
+
+ThirdParty --> DataVoucher: Data voucher
+
+DataVoucher --> Redis: Save data voucher with RequestId & TTL
+
+PurchaseData --> PurchaseData: Active task get data voucher
+
+PurchaseData -> DataVoucher: Get data voucher by RequestId
+
+DataVoucher -> Redis: Get data voucher by RequestId
+
+Redis --> DataVoucher: Data voucher
+
+DataVoucher -> PurchaseData: Data voucher
+
+PurchaseData --> MySQL: Save data voucher
+
+PurchaseData --> PhoneCarrier: Send voucher by SMS
+
+@enduml

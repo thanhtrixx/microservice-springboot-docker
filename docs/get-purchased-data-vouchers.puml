@@ -1,0 +1,29 @@
+@startuml
+
+participant WebSite
+
+box "BackEnd" #LightYellow
+participant PurchaseData
+database MySQL
+end box
+
+WebSite -> PurchaseData : Get purchased data vouchers
+activate WebSite
+activate PurchaseData
+PurchaseData -> PurchaseData: Check JWT token
+
+alt #Coral JWT token invalid
+
+  PurchaseData -> WebSite: Authentication Failure
+
+else #MediumSpringGreen JWT token valid
+
+  PurchaseData -> MySQL: Get data voucher by UserId
+  MySQL --> PurchaseData: Data vouchers
+  PurchaseData --> WebSite: Data vouchers
+  deactivate PurchaseData
+  deactivate WebSite
+end
+
+
+@enduml

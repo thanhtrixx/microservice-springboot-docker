@@ -1,0 +1,32 @@
+@startuml
+
+participant WebSite
+
+box "BackEnd" #LightYellow
+  participant PurchaseData
+end box
+
+box "Partner services" #LightBlue
+  participant PhoneCarrier
+end box
+
+activate WebSite
+WebSite -> PurchaseData : Apply data voucher
+
+activate PurchaseData
+
+PurchaseData -> PhoneCarrier: Apply data voucher
+
+activate PhoneCarrier
+
+PhoneCarrier --> PurchaseData: Result
+
+deactivate PhoneCarrier
+
+PurchaseData --> WebSite: Result
+
+deactivate PurchaseData
+deactivate WebSite
+
+
+@enduml
