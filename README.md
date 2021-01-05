@@ -97,6 +97,9 @@ Perform the following steps to run the test:
 ```
 ./docker-compose-up.sh -f
 ```
+
+![Docker compose up](https://trile.dev/img/post/cc-1-docker-compose-up.png)
+
 Use option *-f* to build jar files & docker images
 
 + Login to get JWT token. I use [HTTPie](https://httpie.io/) because it's readable than *curl*:
