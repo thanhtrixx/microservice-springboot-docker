@@ -81,7 +81,7 @@ Based on the above requirements and my personal experience. I will choose a Tech
 
 ![Entity diagram](https://trile.dev/img/post/cc-1-entity.svg)
 
-### IV.5. Sequel diagram
+### IV.5. Sequel diagrams
 
 ###### Login
 
