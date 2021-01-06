@@ -102,7 +102,7 @@ Based on the above requirements and my personal experience. I will choose a Tech
 
 ## V. APIs
 
-[Here](docs/api-spec.apib)
+[Click Here](https://purchasedata.docs.apiary.io/)
 
 ## VI. Test
 
