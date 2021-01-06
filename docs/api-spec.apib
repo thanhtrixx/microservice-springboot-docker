@@ -1,0 +1,34 @@
+FORMAT: 1A
+HOST: https://api.abc.com/purchase-data/
+
+# PurchaseData
+
+All these APIs involve purchase data voucher & apply data voucher.
+
+## User [/user/login{?name}{?password}]
+
+### User Login [POST]
+
++ Parameters
+
+  + name (string) - Username
+  + password (string) - Password
+
++ Request (application/json)
+
++ Response 200 (application/json)
+  + Attribute (LoginSuccess)
+
++ Response 200 (application/json)
+  + Attribute (LoginFailed)
+
+## Data Structures
+
+### LoginSuccess
++ data: JWT token
++ returnCode: 0 (number)
++ message: Login success
+
+### LoginFailed
++ returnCode: 5 (number)
++ message: UserName or Password incorrect
