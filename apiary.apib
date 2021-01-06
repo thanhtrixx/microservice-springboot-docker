@@ -21,6 +21,24 @@ All these APIs involve purchase data voucher & apply data voucher.
 
 + Response 200 (application/json)
   + Attribute (LoginFailed)
+  
+## PurchaseData [/purchase-data/]
+
+### Purchase Data Voucher [POST]
+
++ Request (application/json)
+  + Headers
+    Authorization: Bearer JWT token
+
++ Response 200 (application/json)
+  + Attribute (PurchaseDataSuccess)
+
++ Response 200 (application/json)
+  + Attribute (PurchaseDataSmsSuccess)
+
++ Response 200 (application/json)
+  + Attribute (PurchaseDataFailed)
+
 
 ## Data Structures
 
@@ -32,3 +50,16 @@ All these APIs involve purchase data voucher & apply data voucher.
 ### LoginFailed
 + returnCode: 5 (number)
 + message: UserName or Password incorrect
+
+### PurchaseDataSuccess
++ data: Voucher
++ returnCode: 0 (number)
++ message: Success
+
+### PurchaseDataSmsSuccess
++ returnCode: 0 (number)
++ message: System will send Data Voucher to SMS
+
+### PurchaseDataFailed
++ returnCode: 3 (number)
++ message: Error when call ThirdParty with requestId: xxx
